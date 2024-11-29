@@ -10,6 +10,8 @@
 #include "strlib.h"
 using namespace std;
 
+void print_string(string& s) { cout << "'" << s << "' (" << s.length() << ")" << endl; }
+
 int main()
 {
     string s = "dharma teja";
