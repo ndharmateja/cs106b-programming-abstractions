@@ -2,3 +2,4 @@
 **/build
 **/*.pro.user
 **/*.app
+**/a.out
