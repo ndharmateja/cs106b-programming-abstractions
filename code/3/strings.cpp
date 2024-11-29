@@ -13,5 +13,13 @@ int main(int argc, char const *argv[])
     print_string(s);
     s.append(" nuli");
     print_string(s);
+
+    string s1 = "world";
+    string s2 = "hello" + s1;
+    print_string(s1);
+    print_string(s2);
+
+    string s3 = "hi" + '?';
+    print_string(s3);
     return 0;
 }
