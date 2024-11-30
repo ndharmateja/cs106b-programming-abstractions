@@ -7,16 +7,26 @@
 #include "error.h"
 using namespace std;
 
-string aSequenceOfOrder(int n) {
-    /* TODO: Delete this line and the next two lines, then implement this function. */
-    (void) n;
-    return "";
+string aSequenceOfOrder(int n)
+{
+    if (n < 0)
+        error("n can't be negative");
+    if (n == 0)
+        return "A";
+    string l = aSequenceOfOrder(n - 1);
+    string r = bSequenceOfOrder(n - 1);
+    return l + r;
 }
 
-string bSequenceOfOrder(int n) {
-    /* TODO: Delete this line and the next two lines, then implement this function. */
-    (void) n;
-    return "";
+string bSequenceOfOrder(int n)
+{
+    if (n < 0)
+        error("n can't be negative");
+    if (n == 0)
+        return "B";
+    string l = bSequenceOfOrder(n - 1);
+    string r = aSequenceOfOrder(n - 1);
+    return l + r;
 }
 
 /* * * * * * Provided Test Cases * * * * * */
@@ -65,6 +75,20 @@ PROVIDED_TEST("Triggers error on negative inputs.")
      */
     EXPECT_ERROR(aSequenceOfOrder(-137));
     EXPECT_ERROR(bSequenceOfOrder(-137));
+}
+
+PROVIDED_TEST("Sequences of order")
+{
+    /* Some very basic checks. */
+    EXPECT_EQUAL(aSequenceOfOrder(0), "A");
+    EXPECT_EQUAL(aSequenceOfOrder(1), "AB");
+    EXPECT_EQUAL(aSequenceOfOrder(2), "ABBA");
+    EXPECT_EQUAL(aSequenceOfOrder(3), "ABBABAAB");
+
+    EXPECT_EQUAL(bSequenceOfOrder(0), "B");
+    EXPECT_EQUAL(bSequenceOfOrder(1), "BA");
+    EXPECT_EQUAL(bSequenceOfOrder(2), "BAAB");
+    EXPECT_EQUAL(bSequenceOfOrder(3), "BAABABBA");
 }
 
 /* TODO: You will need to add your own tests into this suite of test cases. Think about the sorts
