@@ -8,32 +8,33 @@
 #include "GUI/SimpleTest.h"
 using namespace std;
 
-string onlyConnectize(string phrase) {
+string onlyConnectize(string phrase)
+{
     /* TODO: The next few lines just exist to make sure you don't get compiler warning messages
      * when this function isn't implemented. Delete these lines, then implement this function.
      */
-    (void) phrase;
-    return "";
+    if (phrase.empty())
+        return "";
+    char first = phrase[0];
+    if (is_vowel(to))
 }
-
-
-
-
-
 
 /* * * * * * Provided Test Cases * * * * * */
 
-PROVIDED_TEST("Converts lower-case to upper-case.") {
+PROVIDED_TEST("Converts lower-case to upper-case.")
+{
     EXPECT_EQUAL(onlyConnectize("lowercase"), "LWRCS");
     EXPECT_EQUAL(onlyConnectize("uppercase"), "PPRCS");
 }
 
-PROVIDED_TEST("Handles non-letter characters properly.") {
+PROVIDED_TEST("Handles non-letter characters properly.")
+{
     EXPECT_EQUAL(onlyConnectize("2.718281828459045"), "");
     EXPECT_EQUAL(onlyConnectize("'Hi, Mom!'"), "HMM");
 }
 
-PROVIDED_TEST("Handles single-character inputs.") {
+PROVIDED_TEST("Handles single-character inputs.")
+{
     EXPECT_EQUAL(onlyConnectize("A"), "");
     EXPECT_EQUAL(onlyConnectize("+"), "");
     EXPECT_EQUAL(onlyConnectize("Q"), "Q");
@@ -53,9 +54,3 @@ PROVIDED_TEST("Handles single-character inputs.") {
  *
  * Happy testing!
  */
-
-
-
-
-
-
