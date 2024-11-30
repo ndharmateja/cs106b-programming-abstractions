@@ -7,6 +7,7 @@
  *
  * Q2: What is the sequence of values that repeats in the stack overflow? Write your
  *     answer below.
+ * 137, 164, 685, 203, 327, 541
  */
 
 #include "StackOverflow.h"
