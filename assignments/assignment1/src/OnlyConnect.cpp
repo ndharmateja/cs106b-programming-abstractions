@@ -8,6 +8,8 @@
 #include "GUI/SimpleTest.h"
 using namespace std;
 
+bool is_vowel(char c) { return c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U'; }
+
 string onlyConnectize(string phrase)
 {
     /* TODO: The next few lines just exist to make sure you don't get compiler warning messages
@@ -15,8 +17,11 @@ string onlyConnectize(string phrase)
      */
     if (phrase.empty())
         return "";
-    char first = phrase[0];
-    if (is_vowel(to))
+    char first = toUpperCase(phrase[0]);
+    if (isalpha(first) && !is_vowel(first))
+        return first + onlyConnectize(phrase.substr(1));
+    else
+        return onlyConnectize(phrase.substr(1));
 }
 
 /* * * * * * Provided Test Cases * * * * * */
@@ -38,6 +43,12 @@ PROVIDED_TEST("Handles single-character inputs.")
     EXPECT_EQUAL(onlyConnectize("A"), "");
     EXPECT_EQUAL(onlyConnectize("+"), "");
     EXPECT_EQUAL(onlyConnectize("Q"), "Q");
+}
+
+PROVIDED_TEST("Empty result.")
+{
+    EXPECT_EQUAL(onlyConnectize(""), "");
+    EXPECT_EQUAL(onlyConnectize("EE 364A"), "");
 }
 
 /* TODO: You will need to add your own tests into this suite of test cases. Think about the sorts
