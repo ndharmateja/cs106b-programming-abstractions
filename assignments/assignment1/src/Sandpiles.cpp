@@ -23,7 +23,6 @@ void dropSandOn(Grid<int> &world, int row, int col)
         dropSandOn(world, row + 1, col);
         dropSandOn(world, row, col + 1);
     }
-    cout << world << endl;
 }
 
 /* * * * * * Provided Test Cases * * * * * */
