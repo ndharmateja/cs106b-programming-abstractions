@@ -1,15 +1,48 @@
 #include "RosettaStone.h"
 #include "GUI/SimpleTest.h"
+#include "queue.h"
 using namespace std;
+
+// Converts a queue of chars into a string
+// Eg enqueue -> d -> n -> a -> dequeue
+// string is "and"
+string queueToString(Queue<char> kGram)
+{
+    string result;
+    while (!kGram.isEmpty())
+        result += kGram.dequeue();
+    return result;
+}
 
 Map<string, double> kGramsIn(const string &str, int kGramLength)
 {
-    /* TODO: Delete this comment and the other lines here, then implement
-     * this function.
-     */
-    (void)str;
-    (void)kGramLength;
-    return {};
+    // kGramLength has to be positive
+    if (kGramLength <= 0)
+        error("kGramLength must be > 0");
+
+    // Initialize the map and return empty map if k is larger than string length
+    Map<string, double> result;
+    if (kGramLength > str.size())
+        return result;
+
+    // Get the first k-gram and put it in a queue
+    Queue<char> q;
+    for (int i = 0; i < kGramLength; i++)
+        q.enqueue(str[i]);
+    result[queueToString(q)] += 1;
+
+    // For each character, dequeue one char (the oldest added)
+    // and enqueue the new char
+    // and convert it to a string and add it to the maps count
+    for (int i = kGramLength; i < str.size(); i++)
+    {
+        q.enqueue(str[i]);
+        q.dequeue();
+        result[queueToString(q)] += 1;
+    }
+
+    // Return result
+    return result;
 }
 
 Map<string, double> normalize(const Map<string, double> &input)
