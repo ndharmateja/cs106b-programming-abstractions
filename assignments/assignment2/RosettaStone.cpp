@@ -47,11 +47,21 @@ Map<string, double> kGramsIn(const string &str, int kGramLength)
 
 Map<string, double> normalize(const Map<string, double> &input)
 {
-    /* TODO: Delete this comment and the other lines here, then implement
-     * this function.
-     */
-    (void)input;
-    return {};
+    // Compute the sum of squares of the counts
+    double squared_sum = 0;
+    for (double value : input.values())
+        squared_sum += (value * value);
+
+    // Throw error if sum of counts is 0
+    if (squared_sum == 0)
+        error("The counts cannot all be 0.");
+
+    // Crete a new map and put the normalized values in it
+    Map<string, double> result;
+    double denominator = sqrt(squared_sum);
+    for (string key : input.keys())
+        result[key] = input[key] / denominator;
+    return result;
 }
 
 Map<string, double> topKGramsIn(const Map<string, double> &source, int numToKeep)
