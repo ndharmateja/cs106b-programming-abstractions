@@ -98,12 +98,11 @@ Map<string, double> topKGramsIn(const Map<string, double> &source, int numToKeep
 
 double cosineSimilarityOf(const Map<string, double> &lhs, const Map<string, double> &rhs)
 {
-    /* TODO: Delete this comment and the other lines here, then implement
-     * this function.
-     */
-    (void)lhs;
-    (void)rhs;
-    return {};
+    double result = 0;
+    for (string key : lhs.keys())
+        if (rhs.containsKey(key))
+            result += (lhs[key] * rhs[key]);
+    return result;
 }
 
 string guessLanguageOf(const Map<string, double> &textProfile,
