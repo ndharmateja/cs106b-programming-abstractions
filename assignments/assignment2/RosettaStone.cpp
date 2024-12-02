@@ -108,12 +108,24 @@ double cosineSimilarityOf(const Map<string, double> &lhs, const Map<string, doub
 string guessLanguageOf(const Map<string, double> &textProfile,
                        const Set<Corpus> &corpora)
 {
-    /* TODO: Delete this comment and the other lines here, then implement
-     * this function.
-     */
-    (void)textProfile;
-    (void)corpora;
-    return "";
+    // Edge case
+    if (corpora.isEmpty())
+        error("Corpora can't be empty.");
+
+    // Find the language with the max similarity
+    string language;
+    double similarity = 0.0;
+    for (Corpus corpus : corpora)
+    {
+        string curr_language = corpus.name;
+        double curr_similarity = cosineSimilarityOf(textProfile, corpus.profile);
+        if (curr_similarity > similarity)
+        {
+            language = curr_language;
+            similarity = curr_similarity;
+        }
+    }
+    return language;
 }
 
 /* * * * *   Test Cases Below This Point   * * * * */
