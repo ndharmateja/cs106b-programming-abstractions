@@ -1,6 +1,7 @@
 #include "RosettaStone.h"
 #include "GUI/SimpleTest.h"
 #include "queue.h"
+#include "priorityqueue.h"
 using namespace std;
 
 // Converts a queue of chars into a string
@@ -66,12 +67,33 @@ Map<string, double> normalize(const Map<string, double> &input)
 
 Map<string, double> topKGramsIn(const Map<string, double> &source, int numToKeep)
 {
-    /* TODO: Delete this comment and the other lines here, then implement
-     * this function.
-     */
-    (void)source;
-    (void)numToKeep;
-    return {};
+    // Create result
+    Map<string, double> result;
+
+    // Edge cases
+    if (numToKeep < 0)
+        error("numToKeep has to be non-negative.");
+    if (numToKeep == 0)
+        return result;
+    if (numToKeep >= source.size())
+        return source;
+
+    // Create a pq to store only top numToKeep values
+    PriorityQueue<string> pq;
+    for (string key : source.keys())
+    {
+        pq.enqueue(key, source[key]);
+        if (pq.size() > numToKeep)
+            pq.dequeue();
+    }
+
+    // Dequeue all the k-elements and store them in the result
+    while (!pq.isEmpty())
+    {
+        string key = pq.dequeue();
+        result[key] = source[key];
+    }
+    return result;
 }
 
 double cosineSimilarityOf(const Map<string, double> &lhs, const Map<string, double> &rhs)
