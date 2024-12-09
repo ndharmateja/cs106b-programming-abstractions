@@ -3,19 +3,21 @@
 #include <sstream>
 #include <iostream>
 
+using namespace std;
+
 class Board
 {
 private:
-    int n;                                // Size of the board (size x size)
-    std::vector<std::vector<bool>> board; // 2D board representation
-    std::vector<bool> cols;               // Tracks if a column is occupied
-    std::vector<bool> diag1;              // Tracks if a major diagonal (\) is occupied
-    std::vector<bool> diag2;              // Tracks if a minor diagonal (/) is occupied
+    int n;                      // Size of the board (size x size)
+    vector<vector<bool>> board; // 2D board representation
+    vector<bool> cols;          // Tracks if a column is occupied
+    vector<bool> diag1;         // Tracks if a major diagonal (\) is occupied
+    vector<bool> diag2;         // Tracks if a minor diagonal (/) is occupied
 
 public:
     // Constructor to initialize board and helper arrays
     Board(int n) : n(n),
-                   board(n, std::vector<bool>(n, false)),
+                   board(n, vector<bool>(n, false)),
                    cols(n, false),
                    diag1(2 * n - 1, false),
                    diag2(2 * n - 1, false) {}
@@ -47,9 +49,9 @@ public:
     }
 
     // Returns a string representation of the board
-    std::string toString()
+    string toString()
     {
-        std::ostringstream oss;
+        ostringstream oss;
         for (int r = 0; r < n; ++r)
         {
             for (int c = 0; c < n; ++c)
