@@ -1,15 +1,13 @@
 #include "WhatAreYouDoing.h"
 using namespace std;
+void backtrack(Vector<string> &tokens, Set<string> result, int index)
+{
+}
 
-/* TODO: Read the comments in WhatAreYouDoing.h to see what this function needs to do, then
- * delete this comment.
- *
- * Don't forget about the tokenize function defined in WhatAreYouDoing.h; you'll almost
- * certainly want to use it.
- */
-Set<string> allEmphasesOf(const string& sentence) {
+Set<string> allEmphasesOf(const string &sentence)
+{
     /* TODO: Delete this line and the next one, then implement this function. */
-    (void) sentence;
+    (void)sentence;
     return {};
 }
 
@@ -20,22 +18,10 @@ Set<string> allEmphasesOf(const string& sentence) {
  * very small and very large cases, etc.
  */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* * * * * * Test cases from the starter files below this point. * * * * * */
 
-PROVIDED_TEST("Enumerates all options in a simple case.") {
+PROVIDED_TEST("Enumerates all options in a simple case.")
+{
     Set<string> expected = {
         "hello",
         "HELLO",
@@ -44,25 +30,28 @@ PROVIDED_TEST("Enumerates all options in a simple case.") {
     EXPECT_EQUAL(allEmphasesOf("Hello"), expected);
 }
 
-PROVIDED_TEST("Each option has the right length.") {
+PROVIDED_TEST("Each option has the right length.")
+{
     string sentence = "Hello, world!";
-    for (string option: allEmphasesOf(sentence)) {
+    for (string option : allEmphasesOf(sentence))
+    {
         EXPECT_EQUAL(option.length(), sentence.length());
     }
 }
 
-PROVIDED_TEST("Enumerates all options in a more typical case.") {
+PROVIDED_TEST("Enumerates all options in a more typical case.")
+{
     Set<string> expected = {
         "you are?",
         "you ARE?",
         "YOU are?",
-        "YOU ARE?"
-    };
+        "YOU ARE?"};
 
     EXPECT_EQUAL(allEmphasesOf("You Are?"), expected);
 }
 
-PROVIDED_TEST("Stress Test: Recursion only branches on words (should take under a second)") {
+PROVIDED_TEST("Stress Test: Recursion only branches on words (should take under a second)")
+{
     /* We're producing a string consisting of fifty copies of the * character. This tokenizes
      * into fifty separate stars. A star is the same whether or not you capitalize it - there
      * is no such thing as an "upper-case" or "lower-case" star. Therefore, your code should
@@ -85,13 +74,13 @@ PROVIDED_TEST("Stress Test: Recursion only branches on words (should take under 
 
     /* The only emphasis is itself. */
     Set<string> expected = {
-        punctuation
-    };
+        punctuation};
 
     EXPECT_EQUAL(allEmphasesOf(punctuation), expected);
 }
 
-PROVIDED_TEST("Stress test: Generates each option once (should take at most a few seconds)") {
+PROVIDED_TEST("Stress test: Generates each option once (should take at most a few seconds)")
+{
     /* This sentence has 13 words in it. There are therefore 2^13 = 8192 possible emphases for
      * the words there, which is a big number but not so large that the computer can't handle
      * it if generates each emphasis exactly once.
