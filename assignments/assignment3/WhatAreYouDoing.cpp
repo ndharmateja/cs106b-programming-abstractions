@@ -1,14 +1,56 @@
 #include "WhatAreYouDoing.h"
+#include "strlib.h"
+
 using namespace std;
-void backtrack(Vector<string> &tokens, Set<string> result, int index)
+
+string join(Vector<string> &tokens)
 {
+    string result = "";
+    for (string token : tokens)
+        result += token;
+    return result;
+}
+
+void explore(Vector<string> &tokens, Set<string> &result, int i)
+{
+    // Base Case
+    // If we go beyond the last token
+    // Convert the vector of strings into a single string and add to the set
+    if (i == tokens.size())
+    {
+        result.add(join(tokens));
+        return;
+    }
+
+    // If
+
+    // Recursive case
+    // For each index, we can either capitalize that word or not
+    // and backtrack
+    // 1. Explore without capitalization
+    // For cases where ith token doesn't start with an alphabet, we don't need to
+    // capitalize and explore, we can simply explore without capitalizing
+    explore(tokens, result, i + 1);
+
+    // If it doesn't start with an alphabet, then we don't need to explore with capitalization
+    if (!isalpha(tokens[i].at(0)))
+        return;
+
+    // 2. Explore with capitalization
+    // Capitalize ith token, explore and then remove capitalization
+    tokens[i] = toUpperCase(tokens[i]);
+    explore(tokens, result, i + 1);
+    tokens[i] = toLowerCase(tokens[i]);
 }
 
 Set<string> allEmphasesOf(const string &sentence)
 {
-    /* TODO: Delete this line and the next one, then implement this function. */
-    (void)sentence;
-    return {};
+    string lowercase = toLowerCase(sentence);
+    Vector<string> tokens = tokenize(lowercase);
+    Set<string> set;
+
+    explore(tokens, set, 0);
+    return set;
 }
 
 /* * * * * * Test Cases * * * * * */
