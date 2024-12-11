@@ -12,26 +12,40 @@ using namespace std;
  * @param x1 y1 The second corner of the triangle.
  * @param x2 y2 The third corner of the triangle.
  */
-void drawTriangle(GWindow& window,
+void drawTriangle(GWindow &window,
                   double x0, double y0,
                   double x1, double y1,
-                  double x2, double y2) {
+                  double x2, double y2)
+{
     window.setColor("black");
-    window.fillPolygon({ x0, y0, x1, y1, x2, y2 });
+    window.fillPolygon({x0, y0, x1, y1, x2, y2});
 }
 
 /* TODO: Refer to Sierpinski.h for more information about what this function should do.
  * Then, delete this comment.
  */
-void drawSierpinskiTriangle(GWindow& window,
+void drawSierpinskiTriangle(GWindow &window,
                             double x0, double y0,
                             double x1, double y1,
                             double x2, double y2,
-                            int order) {
-    /* TODO: Delete this comment, these next lines of code, and implement this function. */
-    (void) window;
-    (void) x0; (void) y0;
-    (void) x1; (void) y1;
-    (void) x2; (void) y2;
-    (void) order;
+                            int order)
+{
+    if (order < 0)
+        error("Order cannot be negative.");
+
+    if (order == 0)
+    {
+        drawTriangle(window, x0, y0, x1, y1, x2, y2);
+        return;
+    }
+    double xMid0 = (x1 + x2) / 2;
+    double yMid0 = (y1 + y2) / 2;
+    double xMid1 = (x2 + x0) / 2;
+    double yMid1 = (y2 + y0) / 2;
+    double xMid2 = (x0 + x1) / 2;
+    double yMid2 = (y0 + y1) / 2;
+
+    drawSierpinskiTriangle(window, x0, y0, xMid1, yMid1, xMid2, yMid2, order - 1);
+    drawSierpinskiTriangle(window, xMid0, yMid0, x1, y1, xMid2, yMid2, order - 1);
+    drawSierpinskiTriangle(window, xMid0, yMid0, xMid1, yMid1, x2, y2, order - 1);
 }
