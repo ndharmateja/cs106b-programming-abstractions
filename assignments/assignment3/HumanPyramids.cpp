@@ -1,16 +1,57 @@
 #include "HumanPyramids.h"
+#include "error.h"
+#include "grid.h"
 using namespace std;
 
-/* TODO: Refer to HumanPyramids.h for more information about what this function should do.
- * Then, delete this comment.
- */
+bool isValidRowColumn(int row, int col, int pyramidHeight)
+{
+    if (row < 0 || col < 0)
+        return false;
+    if (row >= pyramidHeight || col > row)
+        return false;
+    return true;
+}
+
+double weightOnBackOf(int row, int col, int pyramidHeight, Grid<double> &grid)
+{
+    // Error cases
+    if (!isValidRowColumn(row, col, pyramidHeight))
+        error("Invalid row, col provided");
+
+    // Base case: if the top most person, return 0
+    if (row == 0 && col == 0)
+        return 0;
+
+    // If value is memoized, return that value
+    if (grid[row][col] != -1)
+        return grid[row][col];
+
+    // If left parent exists, add left parent's half weight + half of weight on back of left parent
+    double result = 0;
+    int leftRow = row - 1;
+    int leftCol = col - 1;
+    if (isValidRowColumn(leftRow, leftCol, pyramidHeight))
+        result += (80 + weightOnBackOf(leftRow, leftCol, pyramidHeight, grid) / 2);
+
+    // If right parent exists, add right parent's half weight + half ofweight on back of right parent
+    int rightRow = row - 1;
+    int rightCol = col;
+    if (isValidRowColumn(rightRow, rightCol, pyramidHeight))
+        result += (80 + weightOnBackOf(rightRow, rightCol, pyramidHeight, grid) / 2);
+
+    // Memoize result
+    grid[row][col] = result;
+
+    // Return the result
+    return result;
+}
+
 double weightOnBackOf(int row, int col, int pyramidHeight)
 {
-    /* TODO: Delete the next few lines and implement this function. */
-    (void)row;
-    (void)col;
-    (void)pyramidHeight;
-    return 0;
+    Grid<double> grid(pyramidHeight, pyramidHeight);
+    grid.fill(-1);
+
+    return weightOnBackOf(row, col, pyramidHeight, grid);
 }
 
 /* * * * * * Test Cases * * * * * */
@@ -35,13 +76,18 @@ PROVIDED_TEST("Function reports errors in invalid cases.")
     EXPECT_ERROR(weightOnBackOf(-1, 10, 20));
 }
 
+PROVIDED_TEST("Large values")
+{
+    EXPECT(weightOnBackOf(30, 15, 31) >= 1000);
+}
+
 PROVIDED_TEST("Stress test: Memoization is implemented (should take under a second)")
 {
     /* TODO: Yes, we are asking you to make a change to this test case! Delete the
      * line immediately after this one - the one that starts with SHOW_ERROR - once
      * you have implemented memoization to test whether it works correctly.
      */
-    SHOW_ERROR("This test is configured to always fail until you delete this line from\n         HumanPyramids.cpp. Once you have implemented memoization and want\n         to check whether it works correctly, remove the indicated line.");
+    // SHOW_ERROR("This test is configured to always fail until you delete this line from\n         HumanPyramids.cpp. Once you have implemented memoization and want\n         to check whether it works correctly, remove the indicated line.");
 
     /* Do not delete anything below this point. :-) */
 
