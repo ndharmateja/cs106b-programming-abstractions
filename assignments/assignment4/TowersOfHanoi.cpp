@@ -12,8 +12,10 @@ const double kPauseTime = 500;
  * haven't yet read that chapter, I recommend that you do so before starting
  * this problem.
  */
-void moveTower(int numDisks, char start, char finish, char temp, int& totalMoves) {
-    if (numDisks != 0) {
+void moveTower(int numDisks, char start, char finish, char temp, int &totalMoves)
+{
+    if (numDisks != 0)
+    {
         moveTower(numDisks - 1, start, temp, finish, totalMoves);
         moveSingleDisk(start, finish);
         totalMoves++;
@@ -21,7 +23,8 @@ void moveTower(int numDisks, char start, char finish, char temp, int& totalMoves
     }
 }
 
-int solveTowersOfHanoi(int numDisks, char start, char finish, char temp) {
+int solveTowersOfHanoi(int numDisks, char start, char finish, char temp)
+{
     /* Want to slow this down? Try these other options for the final parameter:
      *
      *   AnimationSpeed::MOLASSES         (extremely slow)

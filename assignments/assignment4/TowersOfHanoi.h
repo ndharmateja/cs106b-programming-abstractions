@@ -9,7 +9,8 @@
 
 #include "gwindow.h"
 
-enum class AnimationSpeed {
+enum class AnimationSpeed
+{
     MOLASSES,
     CHEETAH,
     PEREGRINE_FALCON
