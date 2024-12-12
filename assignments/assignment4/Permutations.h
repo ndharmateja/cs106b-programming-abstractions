@@ -4,6 +4,6 @@
 #include <string>
 #include "set.h"
 
-Set<std::string> permutationsOf(const std::string& str);
+Set<std::string> permutationsOf(const std::string &str);
 
 #endif

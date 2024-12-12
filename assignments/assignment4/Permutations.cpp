@@ -12,22 +12,26 @@ using namespace std;
  * Should we have used pass-by-const-reference here? Probably. That itself
  * isn't the error, but it is related to what went wrong here.
  */
-Set<string> permutationsRec(string str, string chosen) {
+Set<string> permutationsRec(string str, string chosen)
+{
     /* Base Case: If there are no remaining characters left to consider, then
      * the only permutation possible is the single permutation consisting of
      * what we already committed to.
      */
-    if (str == "") {
-        return { chosen };
+    if (str == "")
+    {
+        return {chosen};
     }
     /* Recursive Case: Some character has to be the next one in the permutation.
      * Which one should it be? Let's try all possible options and see what we
      * find.
      */
-    else {
+    else
+    {
         /* Hold all permutations we find. */
         Set<string> result;
-        for (int i = 0; i < str.size(); i++) {
+        for (int i = 0; i < str.size(); i++)
+        {
             /* Form a new string of all the remaining letters by grabbing everything
              * up to but not including the current character, then everything after
              * the current character.
@@ -47,6 +51,7 @@ Set<string> permutationsRec(string str, string chosen) {
     }
 }
 
-Set<string> permutationsOf(const string& str) {
+Set<string> permutationsOf(const string &str)
+{
     return permutationsRec(str, "");
 }
