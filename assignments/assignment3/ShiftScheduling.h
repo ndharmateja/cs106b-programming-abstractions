@@ -33,6 +33,6 @@
  * @return A schedule for the worker that maximizes the value brought in. This schedule cannot
  *         have overlapping shifts, nor can it exceed the maximum number of hours.
  */
-Set<Shift> highestValueScheduleFor(const Set<Shift>& shifts, int maxHours);
+Set<Shift> highestValueScheduleFor(const Set<Shift> &shifts, int maxHours);
 
 #endif
